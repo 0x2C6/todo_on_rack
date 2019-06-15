@@ -2,7 +2,31 @@ module Application
   class Controller
     def render(option = {})
       option[:status] = 200
-      return [option[:status], { "Content-Type" => "text/html" }, [option[:view]]]
+      return [option[:status], { "Content-Type" => "text/html" }, [view_renderer(option[:view])]]
+    end
+
+    def template_binding
+      binding
+    end
+
+    def view_renderer(view)
+      return ERB.new(File.read(
+               File.expand_path(
+                 "../../app/views/layouts/application.html.erb",
+                 File.dirname(
+                   __FILE__
+                 )
+               )
+             )).result(template_binding {
+               ERB.new(File.read(
+                 File.expand_path(
+                   "../../app/views/#{view}.html.erb",
+                   File.dirname(
+                     __FILE__
+                   )
+                 )
+               )).result
+             })
     end
 
     class << self
@@ -13,10 +37,6 @@ module Application
           .find { |route| route[:path] == request.path_info }
 
         Object.const_get("#{route[:controller].capitalize}Controller").new.send(route[:action].to_sym)
-      end
-
-      def controller_response
-        puts "salam"
       end
     end
   end

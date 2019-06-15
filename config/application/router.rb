@@ -17,7 +17,7 @@ module Application
       end
 
       def routes
-        puts @@methods.map { |method| class_variable_get("@@#{method}_routes") }
+        @@methods.map { |method| class_variable_get("@@#{method}_routes") }
       end
     end
   end
