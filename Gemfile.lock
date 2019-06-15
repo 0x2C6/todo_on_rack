@@ -2,10 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     bcrypt (3.1.13)
-    linguistics (2.1.0)
-      loggability (~> 0.11)
-    loggability (0.14.0)
-    require_all (2.0.0)
+    rack (2.0.7)
     sqlite3 (1.4.1)
 
 PLATFORMS
@@ -13,8 +10,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  linguistics (~> 2.1)
-  require_all
+  rack
   sqlite3
 
 BUNDLED WITH

@@ -13,10 +13,10 @@ class User < Database::Model
   end
 end
 
-# a = User.new(
-#   email: "farhaddeeddwedewyvadzli2@gmail.com",
-#   first_name: "dadas",
-#   password: "123456",
-#   last_name: "eyvazli",
-# )
-# a.save
+a = User.new(
+  email: "farhaddeeddwedewyvadzli2@gmail.com",
+  first_name: "dadas",
+  password: "123456",
+  last_name: "eyvazli",
+)
+a.save
