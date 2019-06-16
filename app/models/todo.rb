@@ -1,8 +1,7 @@
 require File.expand_path("../../config/database.rb", File.dirname(__FILE__))
 
 class Todo < Database::Model
-  attributes = [:title, :due_to, :priority, :status, :user_id]
-  attr_accessor *attributes
+  attr_accessor :title, :due_to, :priority, :status, :user_id
 
   def initialize(data = {})
     @title = data[:title]

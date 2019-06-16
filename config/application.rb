@@ -2,6 +2,7 @@ require "bundler"
 Bundler.require(:default)
 require "erb"
 require "cgi"
+require_all File.expand_path("../lib/refinements", File.dirname(__FILE__))
 require File.expand_path("./database/query_generators.rb", File.dirname(__FILE__))
 require File.expand_path("./database/model.rb", File.dirname(__FILE__))
 require File.expand_path("./database/schema.rb", File.dirname(__FILE__))
