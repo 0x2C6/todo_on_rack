@@ -11,12 +11,17 @@ module Application
       @@session
     end
 
+    def logged_id?
+      return false unless @@session['id']
+      @@session['id']
+    end
+
     def redirect_to(path)
       return [302, { "Location" => path }, []]
     end
 
     def params(param)
-      @@params[param]
+      @@params[param].first
     end
 
     def template_binding

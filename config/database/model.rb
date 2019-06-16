@@ -15,6 +15,8 @@ module Database
         end)
 
         $db.execute insert(self), records
+      rescue
+        return false
       end
     end
 
@@ -22,6 +24,12 @@ module Database
       def create(data = {})
         record = new(data)
         record.save
+      end
+
+      def find_by(columns = {})
+        result = $db.execute2(find(self.name, columns), columns.values)
+        return nil if result.size == 1
+        result.first.zip(result.last).to_h
       end
     end
   end
