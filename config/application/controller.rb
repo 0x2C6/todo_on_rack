@@ -4,7 +4,9 @@ module Application
 
     def render(option = {})
       option[:status] = 200
-      return [option[:status], { "Content-Type" => "text/html" }, [view_renderer(option[:view])]]
+      return [option[:status],
+              { "Content-Type" => "text/html" },
+              [view_renderer(option[:view], option[:locals])]]
     end
 
     def session
@@ -24,11 +26,14 @@ module Application
       @@params[param].first
     end
 
-    def template_binding
+    def template_binding(locals = nil)
+      # locals.each do |k, v|
+      #   # instance_variable_set "@#{k}", v
+      # end if locals
       binding
     end
 
-    def view_renderer(view)
+    def view_renderer(view, locals)
       return ERB.new(File.read(
                File.expand_path(
                  "../../app/views/layouts/application.html.erb",
@@ -44,7 +49,7 @@ module Application
                      __FILE__
                    )
                  )
-               )).result
+               )).result(template_binding(locals))
              })
     end
 
