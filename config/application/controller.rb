@@ -1,8 +1,22 @@
 module Application
   class Controller
+    @@params = {}
+
     def render(option = {})
       option[:status] = 200
       return [option[:status], { "Content-Type" => "text/html" }, [view_renderer(option[:view])]]
+    end
+
+    def session
+      @@session
+    end
+
+    def redirect_to(path)
+      return [302, { "Location" => path }, []]
+    end
+
+    def params(param)
+      @@params[param]
     end
 
     def template_binding
@@ -32,7 +46,9 @@ module Application
     class << self
       def request_handler(env)
         request = Rack::Request.new(env)
+        @@session = env["rack.session"]
 
+        class_variable_set("@@params", CGI.parse(request.body.read))
         route = Router.class_variable_get("@@#{request.request_method.downcase}_routes")
           .find { |route| route[:path] == request.path_info }
 

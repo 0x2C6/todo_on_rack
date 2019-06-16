@@ -12,10 +12,3 @@ class Todo < Database::Model
     @user_id = data[:user]
   end
 end
-
-# puts User
-
-# a = Todo.new
-# a.title = "test"
-# a.user_id = 1
-# a.save
