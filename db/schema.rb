@@ -45,11 +45,8 @@ class Schema < Database::Schema
     user_id: {
       type: "integer",
       null: false,
-      foreign_key: true,
-      reference: "user",
-    },
-  # relations: {
-
-  # }
+      # foreign_key: true,
+      # reference: "user",
+    }
   }
 end

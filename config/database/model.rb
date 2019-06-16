@@ -15,7 +15,8 @@ module Database
         end)
 
         $db.execute insert(self), records
-      rescue
+      rescue => e
+        pp e
         return false
       end
     end
@@ -26,10 +27,23 @@ module Database
         record.save
       end
 
+      def where(columns = {})
+        results = $db.execute2(find(self.name, columns), columns.values)
+        data = []
+
+        columns = results.shift
+        results.each do |result|
+          data << self.result(columns.zip(result).to_h)
+        end
+
+        return data
+      end
+
       def find_by(columns = {})
         result = $db.execute2(find(self.name, columns), columns.values)
-        return nil if result.size == 1
         result.first.zip(result.last).to_h
+        return nil if result.size == 1
+        self.result(result.first.zip(result.last).to_h)
       end
     end
   end

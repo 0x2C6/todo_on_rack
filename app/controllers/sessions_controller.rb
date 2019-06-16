@@ -4,16 +4,16 @@ class SessionsController < Application::Controller
   using RefineHash
 
   def new
-    user = User.find_by(email: "farhad9801@gmail.com")
-    pp user["first_name"]
+    return redirect_to "/" if logged_id?
     render view: "sessions/new"
   end
 
   def create
-    user = User.find_by(email: "email")
-    # user.email = params["user[email]"]
-    # user.password = params["user[password]"]
-
-    # redirect_to "/login" if user.save
+    return redirect_to "/" if logged_id?
+    user = User.find_by(email: params("sessions[email]"))
+    if user && user.valid_password?(params("sessions[password]"))
+      session["id"] = user.id
+      return redirect_to "/"
+    end
   end
 end

@@ -21,7 +21,7 @@ module Database
           when :foreign_key
             query << " #{value ? ",FOREIGN KEY(#{name})" : ""}"
           when :reference
-            query << " #{value ? "REFERENCES #{value.capitalize}(#{name})" : ""}"
+            query << " #{value ? "REFERENCES #{value}(#{name})" : ""}"
           end
         end
         query << ","

@@ -12,8 +12,8 @@ module Application
     end
 
     def logged_id?
-      return false unless @@session['id']
-      @@session['id']
+      return false unless @@session["id"]
+      @@session["id"]
     end
 
     def redirect_to(path)
