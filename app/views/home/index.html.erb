@@ -1,8 +1,21 @@
 <h1>HOME</h1>
 
 <h2>Todo</h2>
-<ul>
-  <% @todos.each do |todo| %>
-    <li><%= todo.title %></li>
+<a href="">Add new Todo</a>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Due To</th> 
+    <th>Priority</th>
+    <th>Status</th>
+  </tr>
+   <% @todos.each do |todo| %>
+    <tr>
+      <td><%= todo.title %></td>
+      <td><%= todo.due_to %></td>
+      <td><%= todo.priority %></td>
+      <td><%= todo.status %></td>
+      <td><a href="">Delete</a></td>
+    </tr>
   <% end %>
-</ul>
+</table>
