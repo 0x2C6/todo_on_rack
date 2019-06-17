@@ -1,10 +1,6 @@
-<h1>HOME</h1>
-
-<h2>Home</h2>
+<h1>Todos</h1>
 
 <a href="">Add new Todo</a>
-<a href="">All Todos</a>
-<a href="">Update user</a>
 
 <% if @todos.size > 0 %>
   <table>
@@ -20,6 +16,16 @@
       <td><%= todo.due_to %></td>
       <td><%= todo.priority %></td>
       <td><%= todo.status %></td>
+      <td>
+      <form action="/todos/edit/<%= todo.id %>" method="POST">
+        <button type="submit">Edit</button>
+      </form>
+      </td>
+      <td>
+      <form action="/todos/delte/<%= todo.id %>" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+      </td>
     </tr>
   <% end %>
 </table>

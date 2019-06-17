@@ -71,12 +71,18 @@ module Application
           end
         end
 
-        return [200, {}, [
-                 File.read(
-                   File.expand_path("../../public/#{request.path_info.match("/").post_match}",
-                                    File.dirname(__FILE__))
-                 ),
-               ]] if route.nil?
+        if route.nil?
+          file_path = File.expand_path("../../public/#{request.path_info}", File.dirname(__FILE__))
+
+          if File.exist? file_path
+            file = File.read(file_path)
+          else
+            file = File.read(File.expand_path("../../public/404.html", File.dirname(__FILE__)))
+          end
+
+          return [200, {}, [file]]
+        end
+
         Object.const_get("#{route[:controller].capitalize}Controller").new.send(route[:action].to_sym)
       end
     end

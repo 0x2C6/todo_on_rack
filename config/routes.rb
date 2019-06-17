@@ -7,6 +7,7 @@ class Routes < Application::Router
   get path: "/users", to: "users#index"
   get path: "/users/new", to: "users#new"
   post path: "/users/create", to: "users#create"
+  get path: "/todos", to: "todos#index"
   get path: "/todos/new", to: "todos#new"
   post path: "/todos/create", to: "todos#create"
   # post path: "/todos/delete/:id", to: "todos#delete"
