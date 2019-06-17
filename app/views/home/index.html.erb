@@ -2,7 +2,8 @@
 
 <h2>Todo</h2>
 <a href="">Add new Todo</a>
-<table>
+<% if @todos.size > 0 %>
+  <table>
   <tr>
     <th>Title</th>
     <th>Due To</th> 
@@ -19,3 +20,6 @@
     </tr>
   <% end %>
 </table>
+<% else %>
+  <p>Nothing to Do</>
+<% end %>

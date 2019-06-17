@@ -38,15 +38,29 @@ module Database
     end
 
     module ClassMethods
-      def find(table, columns)
+      def find(table, columns, opts = nil)
         column_names = ""
+
         table = table.downcase
         columns.each do |k, v|
           column_names << " #{table}.#{k.to_s} = ? AND "
         end
         column_names = column_names.reverse.sub("DNA", "").reverse
+        query = "SELECT * FROM #{table} WHERE #{column_names}"
+        if opts
+          opts[:not].each do |k, v|
+            query << " AND NOT #{k.to_s} = '#{v}'"
+          end if opts[:not]
+          if opts[:order]
+            query << "ORDER BY "
+            opts[:order].each do |k, v|
+              query << "#{k.to_s} #{v.upcase}"
+            end
+          end
+        end
 
-        "SELECT * FROM #{table} WHERE #{column_names}"
+        pp query
+        return query
       end
     end
   end

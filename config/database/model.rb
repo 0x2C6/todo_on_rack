@@ -31,8 +31,8 @@ module Database
         record.save
       end
 
-      def where(columns = {})
-        results = $db.execute2(find(self.name, columns), columns.values)
+      def where(columns, opts = nil)
+        results = $db.execute2(find(self.name, columns, opts), columns.values)
         data = []
 
         columns = results.shift

@@ -10,5 +10,4 @@ class Routes < Application::Router
   get path: "/todos/new", to: "todos#new"
   post path: "/todos/create", to: "todos#create"
   # post path: "/todos/delete/:id", to: "todos#delete"
-  pp routes
 end
