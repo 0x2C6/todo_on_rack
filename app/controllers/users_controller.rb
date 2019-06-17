@@ -28,9 +28,7 @@ class UsersController < Application::Controller
 
   def edit
     return redirect_to "/" unless logged_id?
-    pp "salam"
     @user = User.find_by(id: session["id"])
-    pp @user
     render view: "users/edit"
   end
 
