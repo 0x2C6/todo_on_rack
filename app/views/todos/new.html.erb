@@ -1,0 +1,16 @@
+<h2>New Todo</h2>
+
+<form action="/todos/create" method="POST">
+  <label for="title">Title</label>
+  <input type="text" id="title" name="todos[title]"><br>
+  <label for="due_to">Due to</label>
+  <input type="text" id="due_to" name="todos[due_to]"><br>
+  <label for="priority">Priority</label>
+  <input type="text" id="priority" name="todos[priority]"><br>
+  <label for="status">Status</label>
+  <select id="status" name="todos[status]">
+    <option value="in progress">In Progress</option>
+    <option value="done">Done</option>
+  </select>
+  <button type="submit">Create Todo</button>
+</form>

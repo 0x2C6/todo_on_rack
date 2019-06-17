@@ -37,6 +37,10 @@ module Database
       "
     end
 
+    def delete(table)
+      return "DELETE FROM #{table.class.name} WHERE #{table.class.name}.id = ?"
+    end
+
     module ClassMethods
       def find(table, columns, opts = nil)
         column_names = ""
@@ -59,7 +63,6 @@ module Database
           end
         end
 
-        pp query
         return query
       end
     end

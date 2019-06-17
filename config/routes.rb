@@ -10,5 +10,7 @@ class Routes < Application::Router
   get path: "/todos", to: "todos#index"
   get path: "/todos/new", to: "todos#new"
   post path: "/todos/create", to: "todos#create"
-  # post path: "/todos/delete/:id", to: "todos#delete"
+  get path: "/todos/edit/:id", to: "todos#edit"
+  post path: "/todos/update/:id", to: "todos#update"
+  post path: "/todos/delete/:id", to: "todos#delete"
 end

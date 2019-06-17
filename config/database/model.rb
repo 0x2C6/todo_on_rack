@@ -19,6 +19,13 @@ module Database
         pp e
         return false
       end
+
+      def destroy
+        $db.execute delete(self), self.id
+      rescue => e
+        pp e
+        false
+      end
     end
 
     module ModelClassMethods

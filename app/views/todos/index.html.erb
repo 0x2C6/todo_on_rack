@@ -1,6 +1,6 @@
 <h1>Todos</h1>
 
-<a href="">Add new Todo</a>
+<a href="/todos/new">Add new Todo</a>
 
 <% if @todos.size > 0 %>
   <table>
@@ -22,7 +22,7 @@
       </form>
       </td>
       <td>
-      <form action="/todos/delte/<%= todo.id %>" method="POST">
+      <form action="/todos/delete/<%= todo.id %>" method="POST">
         <button type="submit">Delete</button>
       </form>
       </td>
