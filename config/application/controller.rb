@@ -23,7 +23,8 @@ module Application
     end
 
     def params(param)
-      @@params[param].first
+      return @@params[param].first if @@params[param].kind_of? Array
+      @@params[param]
     end
 
     def template_binding(locals = nil)
@@ -60,8 +61,15 @@ module Application
 
         class_variable_set("@@params", CGI.parse(request.body.read))
         route = Router.class_variable_get("@@#{request.request_method.downcase}_routes")
-          .find { |route| route[:path] == request.path_info }
+          .find do |route|
+          if route[:param]
+            @@params[route[:param]] = request.path_info.reverse.match("/").pre_match.reverse
 
+            route[:path] == request.path_info.reverse.match("/").post_match.reverse
+          else
+            route[:path] == request.path_info
+          end
+        end
         Object.const_get("#{route[:controller].capitalize}Controller").new.send(route[:action].to_sym)
       end
     end

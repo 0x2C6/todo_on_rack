@@ -1,3 +1,5 @@
+require File.expand_path("./controller.rb", File.dirname(__FILE__))
+
 module Application
   class Router
     @@methods = [:get, :post]
@@ -9,7 +11,8 @@ module Application
         define_method method_name do |route|
           class_variable_get("@@#{__method__}_routes") << {
             method: __method__.to_s,
-            path: route[:path],
+            path: (route[:path].match("/:").pre_match if route[:path].match("/:")) || route[:path],
+            param: (route[:path].match("/:").post_match if route[:path].match("/:") || nil),
             controller: route[:to].match("#").pre_match,
             action: route[:to].match("#").post_match,
           }
