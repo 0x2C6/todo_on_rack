@@ -26,6 +26,13 @@ module Database
         pp e
         false
       end
+
+      def update_attributes(attributes)
+        $db.execute update(self, attributes)
+      rescue => e
+        pp e
+        false
+      end
     end
 
     module ModelClassMethods

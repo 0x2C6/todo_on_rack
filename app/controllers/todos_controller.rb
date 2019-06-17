@@ -34,9 +34,18 @@ class TodosController < Application::Controller
   end
 
   def update
+    return redirect_to "/sessions/new" unless logged_id?
+    todo = Todo.find_by(id: params("id"))
+    redirect_to "/todos" if todo.update_attributes(
+      title: params("todos[title]"),
+      due_to: params("todos[due_to]"),
+      status: params("todos[status]"),
+      priority: params("todos[priority]"),
+    )
   end
 
   def edit
+    @todo = Todo.find_by(id: params("id"))
     render view: "todos/edit"
   end
 end

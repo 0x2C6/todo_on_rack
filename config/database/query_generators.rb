@@ -29,16 +29,25 @@ module Database
       return query.chop
     end
 
-    def insert(table)
-      fields = Schema.models(table.class.name).keys.reject { |k| k == :id }
+    def insert(row)
+      fields = Schema.models(row.class.name).keys.reject { |k| k == :id }
       return "
-      INSERT INTO #{table.class.to_s.downcase} (#{fields.join(",")})
+      INSERT INTO #{row.class.to_s.downcase} (#{fields.join(",")})
       VALUES (#{(Array.new(fields.size) { "?" }).join(",")})
       "
     end
 
-    def delete(table)
-      return "DELETE FROM #{table.class.name} WHERE #{table.class.name}.id = ?"
+    def delete(row)
+      return "DELETE FROM #{row.class.name} WHERE #{row.class.name}.id = ?"
+    end
+
+    def update(row, attributes)
+      updated_query = ""
+
+      attributes.each do |k, v|
+        updated_query << "#{k.to_s} = '#{v}',"
+      end
+      return "UPDATE #{row.class.name.downcase} SET #{updated_query.chop} WHERE id = #{self.id}"
     end
 
     module ClassMethods
