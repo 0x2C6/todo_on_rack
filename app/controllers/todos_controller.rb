@@ -27,7 +27,7 @@ class TodosController < Application::Controller
   def delete
     return redirect_to "/sessions/new" unless logged_id?
     todo = Todo.find_by(id: params("id"))
-
+    return redirect_to "/404" unless todo.user_id == session["id"]
     if todo.user_id == session["id"]
       redirect_to "/todos" if todo.destroy
     end
@@ -36,6 +36,7 @@ class TodosController < Application::Controller
   def update
     return redirect_to "/sessions/new" unless logged_id?
     todo = Todo.find_by(id: params("id"))
+    return redirect_to "/404" unless todo.user_id == session["id"]
     redirect_to "/todos" if todo.update_attributes(
       title: params("todos[title]"),
       due_to: params("todos[due_to]"),
@@ -45,7 +46,9 @@ class TodosController < Application::Controller
   end
 
   def edit
+    return redirect_to "/sessions/new" unless logged_id?
     @todo = Todo.find_by(id: params("id"))
+    return redirect_to "/404" unless @todo.user_id == session["id"]
     render view: "todos/edit"
   end
 end
