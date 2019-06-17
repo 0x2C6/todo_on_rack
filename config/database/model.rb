@@ -22,6 +22,10 @@ module Database
     end
 
     module ModelClassMethods
+      def has_many(model)
+        return Object.const_get(model.to_s.chop.capitalize).where(user_id: self.instance_variable_get("@id"))
+      end
+
       def create(data = {})
         record = new(data)
         record.save

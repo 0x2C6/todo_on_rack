@@ -4,6 +4,8 @@ class User < Database::Model
   include BCrypt
   attr_accessor :id, :email, :first_name, :last_name, :password
 
+  has_many :todos
+
   def initialize(data = {})
     @id = data[:id]
     @email = data[:email]
@@ -15,10 +17,6 @@ class User < Database::Model
   def save
     @password = Password.create(@password)
     super
-  end
-
-  def todos
-    return Todo.where(title: "test")
   end
 
   def valid_password?(password)

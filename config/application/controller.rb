@@ -70,6 +70,13 @@ module Application
             route[:path] == request.path_info
           end
         end
+
+        return [200, {}, [
+                 File.read(
+                   File.expand_path("../../public/#{request.path_info.match("/").post_match}",
+                                    File.dirname(__FILE__))
+                 ),
+               ]] if route.nil?
         Object.const_get("#{route[:controller].capitalize}Controller").new.send(route[:action].to_sym)
       end
     end
