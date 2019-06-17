@@ -1,6 +1,13 @@
 # Todo On Rack
 
+## Running
+
+```sh
+  $ rackup
+```
+
 ## Routes
+
 ```ruby
   get   path: "/",                 to: "home#index"
   get   path: "/sessions/new",     to: "sessions#new"
