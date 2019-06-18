@@ -3,7 +3,7 @@ require File.expand_path("../../config/application.rb", File.dirname(__FILE__))
 class TodosController < Application::Controller
   def index
     return redirect_to "/sessions/new" unless logged_id?
-    @todos = Todo.where({ user_id: session["id"] })
+    @todos = Todo.where({ user_id: session["id"] }, order: { title: :asc })
     render view: "todos/index"
   end
 
