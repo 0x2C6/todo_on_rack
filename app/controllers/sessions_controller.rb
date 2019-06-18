@@ -18,4 +18,11 @@ class SessionsController < Application::Controller
     end
     redirect_to "/sessions/new"
   end
+
+  def destroy
+    return redirect_to "/" unless logged_id?
+    pp session["id"]
+    session["id"] = nil
+    redirect_to "/sessions/new"
+  end
 end
