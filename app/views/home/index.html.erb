@@ -1,27 +1,37 @@
 <h1>HOME</h1>
 
-<h2>Home</h2>
-
 <a href="/todos/new">Add new Todo</a>
 <a href="/todos">All Todos</a>
 <a href="/users/edit">Update user</a>
 
 <% if @todos.size > 0 %>
-  <table>
-  <tr>
-    <th>Title</th>
-    <th>Due To</th> 
-    <th>Priority</th>
-    <th>Status</th>
-  </tr>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Due To</th> 
+      <th scope="col">Priority</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
    <% @todos.each do |todo| %>
     <tr>
       <td><%= todo.title %></td>
       <td><%= todo.due_to %></td>
       <td><%= todo.priority %></td>
       <td><%= todo.status %></td>
+      <td>
+      <a href="/todos/edit/<%= todo.id %>">Edit</a>
+      </td>
+      <td>
+      <form action="/todos/delete/<%= todo.id %>" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+      </td>
     </tr>
   <% end %>
+  </tbody>
 </table>
 <% else %>
   <p>Nothing to Do</>

@@ -11,6 +11,7 @@ class SessionsController < Application::Controller
   def create
     return redirect_to "/" if logged_id?
     user = User.find_by(email: params("sessions[email]"))
+
     if user && user.valid_password?(params("sessions[password]"))
       session["id"] = user.id
       return redirect_to "/"

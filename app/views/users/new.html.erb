@@ -1,16 +1,13 @@
 <h2>Register</h2>
 
 <form action="/users/create" method="post">
-  <label for="email">Email</label>
-  <input type="text" id="email" name="user[email]"></br>
-  
-  <label for="password">Password</label>
-  <input type="password" id="email" name="user[password]"></br>
-
-  <label for="first_name">First Name</label>
-  <input type="text" id="first_name" name="user[first_name]"></br>
-
-  <label for="last_name">Last Name</label>
-  <input type="text" id="last_name" name="user[last_name]"></br>
-  <button type="submit">Regiser</button>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name="user[email]" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" name="user[password]" class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Register</button>
 </form>

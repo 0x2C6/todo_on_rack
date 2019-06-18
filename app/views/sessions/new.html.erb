@@ -1,11 +1,15 @@
 <h2>Login</h2>
+
 <form action="/sessions/create" method="post">
-  <label for="email">Email</label>
-  <input type="text" id="email" name="sessions[email]"></br>
-  
-  <label for="password">Password</label>
-  <input type="password" id="email" name="sessions[password]"></br>
-  <button type="submit">Login</button>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name="sessions[email]" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" name="sessions[password]" class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
 </form>
 
 <a href="/users/new">Register</a>

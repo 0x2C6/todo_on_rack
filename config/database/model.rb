@@ -3,7 +3,6 @@ module Database
     include Database::QueryGenerators
 
     def self.inherited(base)
-      pp Schema.models(base.name).keys
       Database::create_table(base.name, Schema.models(base.name))
       base.include ModelInstanceMethods
       base.extend ModelClassMethods
@@ -18,7 +17,7 @@ module Database
         end
 
         def self.result(hash)
-          self.new(
+          return self.new(
             hash
           )
         end
