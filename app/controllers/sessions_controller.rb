@@ -15,5 +15,6 @@ class SessionsController < Application::Controller
       session["id"] = user.id
       return redirect_to "/"
     end
+    redirect_to "/sessions/new"
   end
 end

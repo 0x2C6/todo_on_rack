@@ -3,9 +3,26 @@ module Database
     include Database::QueryGenerators
 
     def self.inherited(base)
+      pp Schema.models(base.name).keys
       Database::create_table(base.name, Schema.models(base.name))
       base.include ModelInstanceMethods
       base.extend ModelClassMethods
+
+      base.class_eval do
+        attr_accessor *Schema.models(base.name).keys
+
+        def initialize(data = {})
+          data.each do |k, v|
+            instance_variable_set("@#{k.to_s}", v)
+          end
+        end
+
+        def self.result(hash)
+          self.new(
+            hash
+          )
+        end
+      end
     end
 
     module ModelInstanceMethods
@@ -36,8 +53,23 @@ module Database
     end
 
     module ModelClassMethods
+      include BCrypt
+
       def has_many(model)
         return Object.const_get(model.to_s.chop.capitalize).where(user_id: self.instance_variable_get("@id"))
+      end
+
+      def has_secure_password
+        self.class_eval do
+          def save
+            @password = Password.create(@password)
+            super
+          end
+
+          def valid_password?(password)
+            Password.new(@password) == password
+          end
+        end
       end
 
       def create(data = {})
